@@ -38,7 +38,7 @@ public class Account {
 
     @Getter
     @Setter
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, targetEntity = Person.class)
     private List<Person> personList = new ArrayList<>();
 
     private Boolean isBan;
