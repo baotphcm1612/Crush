@@ -2,6 +2,8 @@ package com.bravos2k5.services;
 
 import com.bravos2k5.daos.AccountDAO;
 import com.bravos2k5.models.Account;
+import com.bravos2k5.utils.EncryptPassword;
+import com.bravos2k5.utils.Regex;
 
 import javax.swing.*;
 
@@ -19,8 +21,10 @@ public class LoginService {
             if(Regex.isStrongPassword(password)) {
                 tmp.setPassword(EncryptPassword.hashPassword(password));
                 tmp.setBan(false);
-                AccountDAO.getInstance().insert(tmp);
-                JOptionPane.showMessageDialog(null,"Register successful");
+                if (AccountDAO.getInstance().insert(tmp)) {
+                    JOptionPane.showMessageDialog(null,"Register successful");
+                }
+                JOptionPane.showMessageDialog(null,"Error");
             }
             else {
                 JOptionPane.showMessageDialog(null,password);

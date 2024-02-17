@@ -20,7 +20,7 @@ public class AccountDAO implements GeneralDAO<Account> {
     }
     @Override
     public List<Account> selectAll() {
-        List<Account> accountList = new ArrayList<>();
+        List<Account> accountList = null;
         try {
             Session session = HibernateUtil.getSession();
             assert session != null;
@@ -50,49 +50,18 @@ public class AccountDAO implements GeneralDAO<Account> {
     }
 
     public Account selectByUsername(Account variable) {
-        Session session = HibernateUtil.getSession();
-        assert session != null;
-        Transaction tr = session.beginTransaction();
-        String hql = "from Account a where a.username =:username";
-        Query<Account> query = session.createQuery(hql,Account.class);
-        query.setParameter("username",variable.getUsername());
-        Account account = query.getSingleResultOrNull();
-        HibernateUtil.close();
-        return account;
-    }
-
-    @Override
-    public boolean insert(Account variable) {
         try {
             Session session = HibernateUtil.getSession();
             assert session != null;
             Transaction tr = session.beginTransaction();
-            session.persist(variable);
-            tr.commit();
+            String hql = "from Account a where a.username =:username";
+            Query<Account> query = session.createQuery(hql,Account.class);
+            query.setParameter("username",variable.getUsername());
+            Account account = query.getSingleResultOrNull();
             HibernateUtil.close();
-            return true;
+            return account;
         } catch (Exception ex) {
-            return false;
+            throw new RuntimeException(ex);
         }
-    }
-
-    @Override
-    public boolean update(Account variable) {
-        try {
-            Session session = HibernateUtil.getSession();
-            assert session != null;
-            Transaction tr = session.beginTransaction();
-            session.merge(variable);
-            tr.commit();
-            HibernateUtil.close();
-            return true;
-        } catch (Exception ex) {
-            return false;
-        }
-    }
-
-    @Override
-    public boolean delete(Account variable) {
-        return false;
     }
 }

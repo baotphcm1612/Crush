@@ -13,7 +13,7 @@ public class HibernateUtil {
             return new Configuration().configure().buildSessionFactory();
         } catch (HibernateException e) {
             System.out.println("Build session failed!");
-            return null;
+            throw new HibernateException(e);
         }
     }
 
@@ -26,6 +26,7 @@ public class HibernateUtil {
     }
 
     public static void close() {
+        assert getSession() != null;
         getSession().close();
     }
 }

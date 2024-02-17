@@ -1,4 +1,4 @@
-package com.bravos2k5.services;
+package com.bravos2k5.utils;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
