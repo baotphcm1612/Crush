@@ -1,13 +1,9 @@
 package com.bravos2k5.models;
 
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -31,21 +27,35 @@ public class User {
     private byte status;
 
     @ManyToOne
+    @JoinColumn(name = "account_id")
     private Account account;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Love love;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "friend", targetEntity = Friendship.class)
-    List<Friendship> friendList = new ArrayList<>();
+    @ManyToMany(cascade = CascadeType.ALL, targetEntity = User.class)
+    @JoinTable(name = "friendship", joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "friend_id"))
+    Set<User> friend = new HashSet<>();
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "memberList",targetEntity = Team.class)
     Set<Team> teamList = new HashSet<>();
 
+    @OneToOne(cascade = CascadeType.ALL, targetEntity = User.class)
+    @JoinColumn(name = "lover_id")
+    private User lover;
+
     public User() {}
 
-    public User(String name, Boolean gender, Account account) {
-
+    public User(int id) {
+        this.id = id;
     }
 
+    public User(String name, Boolean gender) {
+        this.name = name;
+        this.gender = gender;
+    }
+
+    public User(String name, Boolean gender, Account account) {
+        this.name = name;
+        this.gender = gender;
+        this.account = account;
+    }
 }

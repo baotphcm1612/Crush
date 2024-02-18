@@ -58,6 +58,7 @@ public class AccountDAO implements GeneralDAO<Account> {
             Query<Account> query = session.createQuery(hql,Account.class);
             query.setParameter("username",variable.getUsername());
             Account account = query.getSingleResultOrNull();
+            tr.commit();
             HibernateUtil.close();
             return account;
         } catch (Exception ex) {

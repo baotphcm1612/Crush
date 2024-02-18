@@ -7,8 +7,6 @@ package com.bravos2k5.graphics;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-
-import com.bravos2k5.services.LoginService;
 import net.miginfocom.swing.*;
 
 /**
@@ -25,19 +23,10 @@ public class Frame extends JFrame {
     }
 
     private void login(ActionEvent e) {
-        String password = new String(passwordField1.getPassword());
-        if(LoginService.Login(textField1.getText(),password)) {
-            JOptionPane.showMessageDialog(null,"Login Successful");
-        }
-        else {
-            JOptionPane.showMessageDialog(null, "Username or password was wrong");
-        }
+
     }
 
     private void register(ActionEvent e) {
-        final String password = new String(passwordField1.getPassword());
-        LoginService.Register(textField1.getText(),password);
-
     }
 
 

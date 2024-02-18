@@ -16,6 +16,6 @@
     <mapping class="com.bravos2k5.models.Account"/>
     <mapping class="com.bravos2k5.models.User"/>
     <mapping class="com.bravos2k5.models.Team"/>
-    <mapping class="com.bravos2k5.models.Friendship"/>
+<!--    <mapping class="com.bravos2k5.models.Love"/>-->
   </session-factory>
 </hibernate-configuration>

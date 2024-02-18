@@ -38,8 +38,8 @@ public class Account {
 
     @Getter
     @Setter
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, targetEntity = User.class)
-    private List<User> personList = new ArrayList<>();
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<User> userList = new ArrayList<>();
 
     private Boolean isBan;
 
@@ -64,7 +64,5 @@ public class Account {
     public Account(String username) {
         this.username = username;
     }
-
-    
 
 }
